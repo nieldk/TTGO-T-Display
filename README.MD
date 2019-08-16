@@ -1,6 +1,10 @@
 # TTGO T-Display
 
 ![image](https://github.com/Xinyuan-LilyGO/TTGO-T-Display/blob/master/image/pinmap.jpg)
+
+This is a modification of the original TTGO T-Display from Xinyuan-LilyGO (https://github.com/Xinyuan-LilyGO/TTGO-T-Display), it replaces the battery meter, with a more
+usefull Bluetooth BLE scanner, which will show 4 BLE devices found during a 30 second scan windows (default, can be changed).
+
 ## 1.Install the following dependency library files:
 - [TFT_eSPI](https://github.com/Bodmer/TFT_eSPI)        
 - [Button2](https://github.com/LennartHennigs/Button2)
