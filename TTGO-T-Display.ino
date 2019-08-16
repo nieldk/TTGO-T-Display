@@ -53,7 +53,8 @@ class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks
 {
     void onResult(BLEAdvertisedDevice advertisedDevice)
     {
-      if (advertisedDevice.haveManufacturerData()){
+      //if (advertisedDevice.haveManufacturerData()){
+      if (advertisedDevice.haveName()){
         String d = advertisedDevice.getAddress().toString().c_str();
         Serial.print(String("Adr: ") + d + " ");
         tft.print(String("Adr: ") + d + " ");
@@ -95,7 +96,7 @@ class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks
         i += 1;
         if (i > MAXDEVICES) {
           advertisedDevice.getScan()->stop();
-          i = 1;
+          //i = 1;
         }
       }
     }
@@ -131,15 +132,9 @@ void ble_scan()
   tft.setTextDatum(MC_DATUM);
   tft.setTextSize(1);
 
-  tft.drawString("Scan BLE", tft.width() / 2, tft.height() / 2);
+  tft.drawString("BLE Scan in progress", tft.width() / 2, tft.height() / 2);
   delay(100);
 
-  tft.fillScreen(TFT_BLACK);
-  tft.setTextDatum(MC_DATUM);
-  tft.setTextDatum(TL_DATUM);
-  tft.setTextSize(1);
-  tft.setCursor(0, 0);
-      
   BLEScan *pBLEScan = BLEDevice::getScan(); //create new scan
   pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
   pBLEScan->setActiveScan(true); //active scan uses more power, but get results faster
@@ -150,11 +145,17 @@ void ble_scan()
 
   BLEScanResults foundDevices = pBLEScan->start(SCAN_TIME);
   int count = foundDevices.getCount();
-
-  if (count == 0) {
+  Serial.println("Count: " + String(count));
+  if (count == 0 || i == 1) {
       Serial.println("no BLE Devices found");
-      tft.drawString("no BLE Devices found", tft.width() / 2, tft.height() / 2);
+      tft.fillScreen(TFT_BLACK);
+      tft.setTextDatum(MC_DATUM);
+      tft.setTextDatum(TL_DATUM);
+      tft.setTextSize(1);
+      tft.setCursor(0, 0);
+      tft.drawString("no BLE Devices found", tft.width() / 4, tft.height() / 2);
   }
+  
 }
 
 void wifi_scan()
