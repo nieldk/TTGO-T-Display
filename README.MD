@@ -28,6 +28,3 @@
 | BUTTON1    | 35     |
 | BUTTON2    | 0      |
 | ADC Power  | 14     |
-
-2019/08/06:
-* The TFT_eSPI and Button2 libraries have been synchronized to the main branch
